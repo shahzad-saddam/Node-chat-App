@@ -4,6 +4,8 @@
   "Description": "This is my chat App",
   "dependencies": {
     "express": "*",
+    "socket.io": "*",
+    "moment": "*",
     "redis": "*",
     "emoji-and-emoticons": "0.0.5",
     "node-emoji": "~0.1.0",
