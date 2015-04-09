@@ -1,0 +1,149 @@
+<script type="text/javascript" src="http://10.28.81.62:8085/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <link rel="stylesheet" href="/styles/normalize.css">
+        <link rel="stylesheet" href="/styles/style.css">
+
+
+
+<script type="text/javascript">
+	var socket = io.connect('http://10.28.81.62:8085');
+	var nickname;
+	socket.on("connect", function(data){
+		while(true){ 
+			nickname = prompt("Enter your Name");
+			if (nickname) {
+			  socket.emit("join", nickname);
+			  $('#user').html(nickname);
+			  break;
+			}	
+		}
+		
+
+		
+
+	});	
+
+	function moveToBottom(){ 
+		var divObject = document.getElementById('messagesarea');
+		divObject.scrollTop = divObject.scrollHeight;
+	}
+
+	$(document).ready(function(){
+		$("#messagebox").keypress(function(e){
+			if ( e.which == 13 ) {
+				 e.preventDefault();
+				var message  = $("#messagebox").val();
+				$("#messagebox").val("");
+				console.log(message);
+				socket.emit('messages', message);
+				moveToBottom();
+			}
+		});
+
+
+window.onload = function()
+{
+	moveToBottom();
+}
+
+	
+	/*	if ( $.cookie('name') === null || $.cookie('name') === "" || $.cookie('name') === "null" || $.cookie('name') === undefined) {
+			var name = prompt("Enter your Name");
+			$.cookie('name', name);
+		}*/
+	});
+
+	function insertMessage(data) {
+		console.log(data.nickname);
+			//$('#content').append('<div style="clear:both; display: block">' + data.toString() + '</span>');
+			var messageclass = function(){
+				if(data.nickname == nickname) 
+					return "from-me";  else  return "from-them";
+			}
+
+			$('.messages').append('<div class="message ' + messageclass() + '"><div class="avatar"></div><p class="time">'+ data.sendingtime + ' by ' + data.nickname + '</p><blockquote>' + data.message +'</blockquote></div>')
+			console.log(data);
+			moveToBottom();
+		}
+	
+
+	socket.on('messages', function(data){
+		insertMessage(data)
+	});
+</script>
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>NodeJS chat</title>
+    </head>
+    <body>
+
+  <header>
+            <div class="contact">
+                <h1 id="user">Thomas Table</h1>
+                <p class="tel">+31 6 555 55 555</p>
+            </div>
+            <ul class="toolbar">
+                <li class="call"><a href="#"><span class="visuallyhidden">Call</span></a></li>
+                <li class="delete"><a href="#"><span class="visuallyhidden">Delete Messages</span></a></li>
+            </ul>
+        </header>
+        <section class="messages" id="messagesarea">
+            <section class="day">
+                <h1>19 July 2013</h1>
+                <!-- <div class="message from-me">
+                    <div class="avatar"></div>
+                    <p class="time">09:57</p>
+                    <blockquote>So, this Flexbox stuff looks pretty great, right?</blockquote>
+                </div>
+                <div class="message from-them">
+                    <div class="avatar"></div>
+                    <p class="time">10:03</p>
+                    <blockquote>Yeah, whatever. I just wish table layout would come back.</blockquote>
+                </div>
+                <div class="message from-me">
+                    <div class="avatar"></div>
+                    <p class="time">10:09</p>
+                    <blockquote>I'm calling off the wedding.</blockquote>
+                </div> -->
+            </section>
+        </section>
+        <form>
+            <input type="text" autocomplete="false" autofocus placeholder="Enter message" id="messagebox">
+            <button><span class="attach"></span><span class="visuallyhidden">Attach a File</span></button>
+        </form>
+    </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+        <div id="content"></div>
+        <div>
+            <input type="text" id="chat_input"/>
+            <input type="button" autocomplete="off" value="submit" id="chat_form">
+        </div>
+
+        <div id="users"></div> -->
+
+        
+    </body>
+</html>
+
+
+
