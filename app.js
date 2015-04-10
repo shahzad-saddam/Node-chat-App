@@ -36,7 +36,7 @@ io.on('connection', function(client){
 			//console.log(date.format('YYYY'));
 		    var sendingtime = date;
 		    //console.log(sendingtime);
-		    var images_path = "http://10.28.81.62:8085/node_modules/emoji-images/pngs/" // path of the images folder 
+		    var images_path = "/node_modules/emoji-images/pngs/" // path of the images folder 
 			var style       = "width: 50%"
 			var emojifiedmsg   = emojify(message, images_path, style);
 			nickname = client.nickname;

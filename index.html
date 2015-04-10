@@ -1,4 +1,4 @@
-<script type="text/javascript" src="http://10.28.81.62:8085/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="http://10.28.81.62:9000/socket.io/socket.io.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
   <link rel="stylesheet" href="/styles/normalize.css">
@@ -7,7 +7,7 @@
 
 
 <script type="text/javascript">
-	var socket = io.connect('http://10.28.81.62:8085');
+	var socket = io.connect('http://10.28.81.62:9000');
 	var nickname;
 	socket.on("connect", function(data){
 		while(true){ 
